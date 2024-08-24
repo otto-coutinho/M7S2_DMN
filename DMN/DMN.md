@@ -12,7 +12,9 @@ O diagram representa as decisões que devem ser tomadas no sistema, bem como as 
 
 <p align="center">Imagem 01 - Diagrama DMN</p>
 
-<img align="center" alt="diagrama-dmn" src="../assets/Diagrama.png">
+<div align="center" >
+<img alt="diagrama-dmn" src="../assets/Diagrama.png">
+</div>
 
 <p align="center">Fonte: Autoria própria.</p>
 
@@ -24,7 +26,9 @@ As decisões são ações tomadas pelo funcionário no sistema. Cada ação poss
 
 <p align="center">Imagem 02 - Conferir</p>
 
-<img align="center" alt="conferir" src="../assets/decisao_1.png">
+<div align="center" >
+<img alt="conferir" src="../assets/decisao_1.png">
+</div>
 
 <p align="center">Fonte: Autoria própria.</p>
 
@@ -47,7 +51,9 @@ A segunda decisão diz respeito à Aprovação do Pagamento, após a conferênci
 
 <p align="center">Imagem 03 - Conferir</p>
 
-<img align="center" alt="pagamento" src="../assets/decisao_2.png">
+<div align="center" >
+<img alt="pagamento" src="../assets/decisao_2.png">
+</div>
 
 <p align="center">Fonte: Autoria própria.</p>
 
@@ -68,7 +74,9 @@ Por fim, a terceira decisão está relacionada ao registro das informações do 
 
 <p align="center">Imagem 04 - Registrar</p>
 
-<img align="center" alt="registro" src="../assets/decisao_3.png">
+<div align="center" >
+<img alt="registro" src="../assets/decisao_3.png">
+</div>
 
 <p align="center">Fonte: Autoria própria.</p>
 
