@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:modeler="http://camunda.org/schema/modeler/1.0" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_1jubley" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="5.26.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.5.0">
+  <decision id="Decision_0f706ab" name="Decisão 1:&#10;Conferir mercadoria">
+    <informationRequirement id="InformationRequirement_1q31xwo">
+      <requiredInput href="#InputData_0c2vikv" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1sp78gr">
+      <requiredInput href="#InputData_16xrf9c" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1f4uoo0" hitPolicy="FIRST">
+      <input id="InputClause_1iis9uw" label="Recebe mercadoria">
+        <inputExpression id="LiteralExpression_0xrb76z" typeRef="boolean">
+          <text>receiveContent</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1r3ywk0" label="Nota fiscal">
+        <inputExpression id="LiteralExpression_1gvx1l2" typeRef="string">
+          <text>checkFiscal</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0kc3yow" label="Condição">
+        <inputExpression id="LiteralExpression_0rhnnx8" typeRef="string">
+          <text>productCondition</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0fo2wih" label="Aprovar mercadoria" name="approveContent" typeRef="boolean" biodi:width="192" />
+      <rule id="DecisionRule_0a7rku4">
+        <inputEntry id="UnaryTests_1kngxt5">
+          <text>receiveContent == true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11u3g19">
+          <text>checkFiscal = "correto"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0azrwhe">
+          <text>productCondition = "correto"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rev6ps">
+          <text>approveContent == true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qg2a8y">
+        <inputEntry id="UnaryTests_1qf1ee0">
+          <text>receiveContent == true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06ss6ho">
+          <text>checkFiscal = "incorreto"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15v6io4">
+          <text>productCondition = "correto"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0kk6qbs">
+          <text>approveContent == false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0u9hw1t">
+        <inputEntry id="UnaryTests_169unoj">
+          <text>receiveContent == true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1p1q5uh">
+          <text>checkFiscal = "correto"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uaph4n">
+          <text>productCondition = "incorreto"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0sdisba">
+          <text>approveContent == false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1uk07ta">
+        <inputEntry id="UnaryTests_0ki95kp">
+          <text>receiveContent == false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mawg1t">
+          <text>checkFiscal = "incorreto"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0inxqy4">
+          <text>productCondition = "incorreto"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1r27z5l">
+          <text>approveContent == false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_0rnp4pg" name="Decisão 2:&#10;Aprovar pagamento">
+    <informationRequirement id="InformationRequirement_1fpxn82">
+      <requiredDecision href="#Decision_0f706ab" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0g8p6sp">
+      <input id="InputClause_1meiboe" label="Aprovar mercadoria">
+        <inputExpression id="LiteralExpression_1ko7k3e" typeRef="boolean">
+          <text>approveContent</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1xvo583" label="Realizar pagamento" name="payment" typeRef="boolean" />
+      <rule id="DecisionRule_00eeovf">
+        <inputEntry id="UnaryTests_1qczcdf">
+          <text>approveContent == true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06tsc2c">
+          <text>payment == true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1fo2fe9">
+        <inputEntry id="UnaryTests_1bgi2af">
+          <text>approveContent == false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05i902d">
+          <text>payment == false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_0eu8i76" name="Decisão 3:&#10;Entrada no sistema">
+    <informationRequirement id="InformationRequirement_191oee8">
+      <requiredDecision href="#Decision_0rnp4pg" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1tei7gn">
+      <input id="InputClause_1j92dml" label="Realizar pagamento">
+        <inputExpression id="LiteralExpression_0v7ys97" typeRef="boolean">
+          <text>payment</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_02aeiu8" label="Registro no sistema" name="systemEntry" typeRef="boolean" />
+      <rule id="DecisionRule_0eozbhs">
+        <inputEntry id="UnaryTests_0ludysr">
+          <text>payment == true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hn4k3u">
+          <text>systemEntry == true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0kaldek">
+        <inputEntry id="UnaryTests_019o72j">
+          <text>payment == false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1pyz9ok">
+          <text>systemEntry == false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_0c2vikv" name="Nota Fiscal" />
+  <inputData id="InputData_16xrf9c" name="Estado Produto" />
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="DMNShape_0wk8zv1" dmnElementRef="Decision_0f706ab">
+        <dc:Bounds height="80" width="180" x="370" y="270" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_10jyyed" dmnElementRef="Decision_0rnp4pg">
+        <dc:Bounds height="80" width="180" x="640" y="270" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_00k2w37" dmnElementRef="Decision_0eu8i76">
+        <dc:Bounds height="80" width="180" x="510" y="430" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0zjbavr" dmnElementRef="InputData_0c2vikv">
+        <dc:Bounds height="45" width="125" x="157" y="287" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1rebrim" dmnElementRef="InformationRequirement_1q31xwo">
+        <di:waypoint x="282" y="310" />
+        <di:waypoint x="350" y="310" />
+        <di:waypoint x="370" y="310" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1irijrp" dmnElementRef="InputData_16xrf9c">
+        <dc:Bounds height="45" width="125" x="397" y="117" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_08g6uz6" dmnElementRef="InformationRequirement_1sp78gr">
+        <di:waypoint x="460" y="162" />
+        <di:waypoint x="460" y="250" />
+        <di:waypoint x="460" y="270" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_0of8so8" dmnElementRef="InformationRequirement_1fpxn82">
+        <di:waypoint x="550" y="310" />
+        <di:waypoint x="620" y="310" />
+        <di:waypoint x="640" y="310" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1ubkb8o" dmnElementRef="InformationRequirement_191oee8">
+        <di:waypoint x="730" y="350" />
+        <di:waypoint x="730" y="390" />
+        <di:waypoint x="600" y="390" />
+        <di:waypoint x="600" y="430" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
