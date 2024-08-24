@@ -10,3 +10,7 @@
 <h2 style="color:green">Elaboração das regras de negócio</h2>
 
 <p align="justify">As regras de negócio elaboradas podem ser encontradas no arquivo <a href="Docs/business_rules.md">business_rules.md</a>.</p>
+
+<h2 style="color:green">Modelo DMN</h2>
+
+<p align="justify">O modelo de Decision Model and Notation (DMN) está localizado na pasta <a href="DMN/">DMN</a>.</p>
